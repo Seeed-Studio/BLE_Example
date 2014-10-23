@@ -1,0 +1,187 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroud" 
+    android:orientation="vertical" >
+
+    <LinearLayout
+       	android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+		
+	    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp" 
+	    android:background="#cacaca"
+	    android:layout_marginTop="2dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="Name: "
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/tv_devicename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:text="" />
+	    </LinearLayout>
+	    
+	    
+	    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp" 
+	    android:background="#cacaca"
+	    android:layout_marginTop="2dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:text="Addr: " />
+        <TextView
+            android:id="@+id/tv_deviceaddr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:text="" />
+    	</LinearLayout>
+	    
+	    
+	    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp" 
+        android:background="#cacaca"
+        android:layout_marginTop="2dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:text="Status: " />
+
+        <TextView
+            android:id="@+id/tv_connstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:text="" />
+    	</LinearLayout>  
+	    
+	    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp" 
+	    android:background="#cacaca"
+	    android:layout_marginTop="2dp">
+        <TextView
+            android:id="@+id/tv_rssi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:text="RSSI: " />
+
+        <TextView
+            android:id="@+id/tv_rssi_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:text="null" />        
+	    </LinearLayout>  	    
+	    
+      	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#cacaca" 
+        android:layout_marginTop="2dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:text="UUID: " />
+
+        <TextView
+            android:id="@+id/tv_targetuuid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="15dp"
+            android:text="TextView"
+            android:textColor="#FF0000" />
+      	</LinearLayout>	    
+	    
+	    
+    	<LinearLayout
+       	android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#cacaca"
+        android:layout_marginTop="15dp">   
+	    <Button
+	        android:id="@+id/btn_send"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="10pt"
+	        android:text="Send:" />
+		<EditText
+	        android:id="@+id/et_tx"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="10pt"
+	        android:hint="type your command" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+       	android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        android:background="#cacaca">  
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginLeft="10dp"
+	        android:textSize="10pt"
+	        android:text="Recv:" />
+	  	<TextView
+	        android:id="@+id/tv_rx"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textSize="10pt"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout
+       	android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:background="#cacaca">  
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:textSize="10pt"
+	        android:text="Characteristics UUID List:"/>
+
+	    </LinearLayout>
+		<ExpandableListView
+	        android:id="@+id/expandableListView1"
+	        android:layout_width="match_parent"
+	        android:layout_height="200dp" 
+	        android:background="#cacaca"
+	        android:layout_marginTop="2dp">
+	    </ExpandableListView>
+	</LinearLayout>
+</ScrollView>
