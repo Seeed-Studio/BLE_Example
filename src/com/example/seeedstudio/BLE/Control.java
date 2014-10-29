@@ -78,6 +78,8 @@ public class Control extends Activity {
 		tv_deviceName = (TextView) findViewById(R.id.tv_devicename);
 		tv_deviceAddr = (TextView) findViewById(R.id.tv_deviceaddr);
 		tv_connstatus = (TextView) findViewById(R.id.tv_connstatus);
+		tv_currentRSSI = (TextView) findViewById(R.id.tv_rssi_value);
+		tv_currentRSSI.setText("null");
 		tv_targetUUID = (TextView) findViewById(R.id.tv_targetuuid);
 		tv_targetUUID.setText("null");
 		tv_rx = (TextView) findViewById(R.id.tv_rx);
@@ -109,9 +111,16 @@ public class Control extends Activity {
 			public void onClick(View v) {
 				if(target_character != null){
 					String cmd = et_send.getText().toString();
+					Log.d(TAG,"send cmd:"+cmd);
 					if(cmd != null){
-						byte[] tx = new byte[]{'a'};
-						characteristicTXRX.setValue(tx);
+						byte b = 0x00;
+						byte[] tmp = cmd.getBytes();
+						byte[] tx = new byte[tmp.length + 1];
+						tx[0] = b;
+						for (int i = 1; i < tmp.length + 1; i++) {
+							tx[i] = tmp[i - 1];
+						}
+						target_character.setValue(tx);
 						mBluetoothLeService.writeCharacteristic(target_character);
 					} else {
 						Toast.makeText(Control.this, "Please type your command.", Toast.LENGTH_SHORT).show();
@@ -173,20 +182,29 @@ public class Control extends Activity {
 				Log.d(TAG, "services discovered!!!");
 				//getGattService(mBluetoothLeService.getSupportedGattServices());
 				displayGattServices(mBluetoothLeService.getSupportedGattServices());
-				//startReadRssi();
+				startReadRssi();
 				//startReadInformation();
 			} else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
 				Log.d(TAG, "receive data");
-                String value = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
+                byte[] value = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
                 if(value != null){
                 	displayData(value);
+                }else{
+                	Log.d(TAG, "value = null");
                 }
 			} else if (BluetoothLeService.ACTION_GATT_RSSI.equals(action)) {
 				Log.d(TAG, "BroadCast + RSSI");
 				rssi_value = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
 				rssi_value += "dB";
-				tv_currentRSSI.setText(rssi_value);
-				//displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+				Log.d(TAG, "rssi_value = " + rssi_value);
+				updateRSSI(rssi_value);
+			}
+		}
+
+		private void updateRSSI(String value) {
+			// TODO Auto-generated method stub
+			if(value != null){
+				tv_currentRSSI.setText(value);
 			}
 		}
 
@@ -233,7 +251,7 @@ public class Control extends Activity {
 			tv_rx.setText(data);
 		}
 	}
-	
+		
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -269,11 +287,13 @@ public class Control extends Activity {
 		System.exit(0);
 	}
 
-	private void displayData(byte[] byteArray) {
-		if (byteArray != null) {
-			String data = new String(byteArray);
-			Log.d(TAG, "data = " + data);
+	private void displayData(byte[] data) {
+		if (data != null) {
+			String dataArray = new String(data);
+			Log.d(TAG, "data = " + dataArray);
+			tv_rx.setText(dataArray);
 		}
+		
 	}
 		
 	private static IntentFilter makeGattUpdateIntentFilter() {
